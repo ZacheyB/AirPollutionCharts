@@ -1,13 +1,57 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    {% if render_chart %}
+    <script type="text/javascript">
+        window.onload = function() {
+            var jsonData = [];
+
+            $.getJSON("/ChartData/", function(data) {
+                data.forEach(element => {
+                    jsonData.push({
+                        x: new Date(Date.parse(element[0].replace(/-(?=[^-]*$)/, ' '))),
+                        y: element[1]
+                    });
+                });
+                var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    title: {
+                        text: "Air Pollution Levels"
+                    },
+                    axisX: {
+                        title: "Timeline",
+                        gridThickness: 1,
+                        valueFormatString: "DDDD MMM YYYY HH:mm:ss"
+                    },
+                    axisY: {
+                        title: "Pm2.5 Level",
+                        maximum: 120
+                    },
+                    data: [
+                    { 
+                        type: "area",
+                        dataPoints: jsonData,
+                        toolTipContent: "{ x }\n PM2.5 Level: { y }"
+                    }
+                    ]
+                });
+                chart.render();
+            });            
+        };
+
+    </script>
+    {% endif %}
+
 </head> 
 <body>
     <h1>Select a city to view pollution data.</h1>
-    <div class="dropdown">
+    
+    
+
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Select a city
         </button>
@@ -19,9 +63,8 @@
       </div>
 
     {% if render_chart %}
-    <div>
-        This is the div the graph will go in. Convert this to take a param/add js for graph.
-    </div>
+    
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 
     <h5>Monthly Averages For {{ city_name }} </h5>
     <table class="table">

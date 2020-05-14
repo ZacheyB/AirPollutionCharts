@@ -152,3 +152,8 @@ def san_diego(request):
     }
 
     return render(request, 'homepage/index.html', context = context)
+
+def chartdata(request):
+    with open('homepage/graphdata/echart.json', 'r') as f:
+        s = f.read()
+    return HttpResponse(s)
