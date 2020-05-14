@@ -12,9 +12,9 @@
           Select a city
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Berkeley</a>
-          <a class="dropdown-item" href="#">Los Angeles</a>
-          <a class="dropdown-item" href="#">San Diego</a>
+          <a class="dropdown-item" href="/NewYork/">New York City</a>
+          <a class="dropdown-item" href="/LosAngeles/">Los Angeles</a>
+          <a class="dropdown-item" href="/SanDiego/">San Diego</a>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
         This is the div the graph will go in. Convert this to take a param/add js for graph.
     </div>
 
-    <h5>Monthly Averages</h5>
+    <h5>Monthly Averages For {{ city_name }} </h5>
     <table class="table">
         <thead>
           <tr>
@@ -35,21 +35,21 @@
         <tbody>
           <tr>
             <th scope="row">March</th>
-            <td>2.3</td>
-            <td>3.4</td>
-            <td>1.6</td>
+            <td>{{ march_2018 }}</td>
+            <td>{{ march_2019 }}</td>
+            <td>{{ march_2020 }}</td>
           </tr>
           <tr>
             <th scope="row">April</th>
-            <td>2.6</td>
-            <td>4.2</td>
-            <td>6.8</td>
+            <td>{{ april_2018 }}</td>
+            <td>{{ april_2019 }}</td>
+            <td>{{ april_2020 }}</td>
           </tr>
           <tr>
             <th scope="row">May</th>
-            <td>5.4</td>
-            <td>1.2</td>
-            <td>1.4</td>
+            <td>{{ may_2018 }}</td>
+            <td>{{ may_2019 }}</td>
+            <td>{{ may_2020 }}</td>
           </tr>
         </tbody>
       </table>
