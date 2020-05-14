@@ -9,7 +9,8 @@ import pandas as pd
 
 # Create your views here.
 def index(request):
-    return render(request, 'homepage/index.html')
+    context = { 'render_chart': False}
+    return render(request, 'homepage/index.html', context = context)
 
 def los_angeles(request):
     if os.path.exists('homepage/graphdata/echart.json'):
@@ -43,6 +44,7 @@ def los_angeles(request):
         f.write(json.dumps(vals))
 
     context = {
+        'render_chart': True,
         'city_name': 'Los Angeles',
         'march_2018': march_2018,
         'april_2018': april_2018,
@@ -89,6 +91,7 @@ def newyork(request):
         f.write(json.dumps(vals))
 
     context = {
+        'render_chart': True,
         'city_name': 'New York',
         'march_2018': 'Only data until 2016 is listed.',
         'april_2018': 0,
@@ -135,6 +138,7 @@ def san_diego(request):
         f.write(json.dumps(vals))
 
     context = {
+        'render_chart': True,
         'city_name': 'San Diego',
         'march_2018': march_2018,
         'april_2018': april_2018,

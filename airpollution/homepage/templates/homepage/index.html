@@ -18,6 +18,7 @@
         </div>
       </div>
 
+    {% if render_chart %}
     <div>
         This is the div the graph will go in. Convert this to take a param/add js for graph.
     </div>
@@ -52,6 +53,6 @@
             <td>{{ may_2020 }}</td>
           </tr>
         </tbody>
-      </table>
-
+    </table>
+    {% endif %}
 </body>
